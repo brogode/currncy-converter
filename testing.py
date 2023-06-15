@@ -140,11 +140,11 @@ class Currency_Converter(tk.Tk):
 class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
-        label = ttk.Label(self, text='Start upp', font=LARGE_FONT)
-        label.pack(pady=10,padx=10)
+        self.label = ttk.Label(self, text='Start upp', font=LARGE_FONT)
+        self.label.pack(pady=10,padx=10)
 
-        button1 = ttk.Button(self, text='Visite page 1', command=lambda :controller.show_frame(PageOne) )
-        button1.pack()
+        self.button1 = ttk.Button(self, text='Visite page 1', command=lambda :controller.show_frame(PageOne) )
+        self.button1.pack()
 
 
 class PageOne(tk.Frame):
@@ -160,32 +160,32 @@ class PageOne(tk.Frame):
 
         #--------------------------------
 
-        label = ttk.Label(frame, text='Page One', font=LARGE_FONT)
-        label.pack(pady=10, padx=10)
+        self.label = ttk.Label(frame, text='Page One', font=LARGE_FONT)
+        self.label.pack(pady=10, padx=10)
 
-        button1 = customtkinter.CTkButton(frame, text='Visite start up page',
+        self.button1 = customtkinter.CTkButton(frame, text='Visite start up page',
                                           command=lambda: controller.show_frame(StartPage))
-        button1.pack()
+        self.button1.pack()
 
-        button2 = tk.Button(frame)
-        button2.pack(padx=400, pady=80)
+        self.button2 = tk.Button(frame)
+        self.button2.pack(padx=400, pady=80)
 
-        from_lable = customtkinter.CTkLabel(frame, text='From', font=('Arial', 15, 'bold'), bg_color='#ff9912')
-        from_lable.place(relx=0.3, rely=0.1)
-        from_list = ttk.Combobox(frame, values=options,  font=('Arial', 12, 'bold'),width=4)
-        from_list.place(relx=0.3,rely=0.2)
-        convert_bnt = customtkinter.CTkButton(frame, text='Cornvert', font=LARGE_FONT, command=lambda :convert())
-        convert_bnt.place(relx=0.3, rely=0.7)
+        self.from_lable = customtkinter.CTkLabel(frame, text='From', font=('Arial', 15, 'bold'), bg_color='#ff9912')
+        self.from_lable.place(relx=0.3, rely=0.1)
+        self.from_list = ttk.Combobox(frame, values=options,  font=('Arial', 12, 'bold'),width=4)
+        self.from_list.place(relx=0.3,rely=0.2)
+        self.convert_bnt = customtkinter.CTkButton(frame, text='Cornvert', font=LARGE_FONT, command=lambda :convert())
+        self.convert_bnt.place(relx=0.3, rely=0.7)
 
-        entry = ttk.Entry(frame, font=('arial',20,'bold'),width=15)
-        entry.place(relx=0.35,rely=0.4)
+        self.entry = ttk.Entry(frame, font=('arial',20,'bold'),width=15)
+        self.entry.place(relx=0.35,rely=0.4)
 
-        lable2 = customtkinter.CTkLabel(frame, text='To', font=('Arial', 15, 'bold'), bg_color='#ff9912')
-        lable2.place(relx=0.6, rely=0.1)
-        To_list = ttk.Combobox(frame,values=options,font=('Arial', 12, 'bold'), width=4)
-        To_list.place(relx=0.6, rely=0.2)
-        button3 = customtkinter.CTkButton(frame, text='Reset', font=('Arial', 12, 'bold'), command=lambda :reset(),)
-        button3.place(relx=0.6, rely=0.7)
+        self.lable2 = customtkinter.CTkLabel(frame, text='To', font=('Arial', 15, 'bold'), bg_color='#ff9912')
+        self.lable2.place(relx=0.6, rely=0.1)
+        self.To_list = ttk.Combobox(frame,values=options,font=('Arial', 12, 'bold'), width=4)
+        self.To_list.place(relx=0.6, rely=0.2)
+        self.button3 = customtkinter.CTkButton(frame, text='Reset', font=('Arial', 12, 'bold'), command=lambda :reset(),)
+        self.button3.place(relx=0.6, rely=0.7)
 
         #-----------------------------------------------
         #the spliting frame
@@ -198,22 +198,22 @@ class PageOne(tk.Frame):
         side_frame = tk.Frame(self, bg='#710193', bd=1, width=50, height=850)
         side_frame.pack(side=tk.LEFT ,fill='both')
 
-        side_from = ttk.Combobox(side_frame, width=10,values=options)
-        side_from.pack(side=tk.LEFT, padx=3)
+        self.side_from = ttk.Combobox(side_frame, width=10,values=options)
+        self.side_from.pack(side=tk.LEFT, padx=3)
 
-        side_to = ttk.Combobox(side_frame, width=10, values=options)
-        side_to.pack(side=tk.LEFT, padx=80)
+        self.side_to = ttk.Combobox(side_frame, width=10, values=options)
+        self.side_to.pack(side=tk.LEFT, padx=80)
 
-        graph_lable= ttk.Label(side_frame, text='Put the curencs on the graph', font=('arial', 12))
-        graph_lable.place(relx=0.01,rely=0.4)
+        self.graph_lable= ttk.Label(side_frame, text='Put the curencs on the graph', font=('arial', 12))
+        self.graph_lable.place(relx=0.01,rely=0.4)
 
-        update_graph = customtkinter.CTkButton(side_frame, text='Update Graph', command=lambda :graph_update())
-        update_graph.place(rely=0.6,relx=0.13)
+        self.update_graph = customtkinter.CTkButton(side_frame, text='Update Graph', command=lambda :graph_update())
+        self.update_graph.place(rely=0.6,relx=0.13)
 
 
         #function to reset the text box
         def reset():
-            entry.delete(0 ,'end')
+            self.entry.delete(0 ,'end')
 
 
         #function for the conversion button
@@ -221,9 +221,9 @@ class PageOne(tk.Frame):
 
             try:
                 currency_history = {}
-                from_currency = from_list.get()
-                to_currency = To_list.get()
-                amount = entry.get()
+                from_currency = self.from_list.get()
+                to_currency = self.To_list.get()
+                amount = self.entry.get()
 
                 today_date = datetime.datetime.now()
                 date_1year = (today_date - datetime.timedelta(days=1))
@@ -244,9 +244,10 @@ class PageOne(tk.Frame):
                     currency_history[current_date] = [currency_rate]
                     rate_history_array = currency_rate
                 txt=str(rate_history_array)
-                convertedvalue = ttk.Label(frame, text=txt, font=('Arial', 15, 'bold'))
-                convertedvalue.place(relx=0.48, rely=0.85)
+                self.convertedvalue = ttk.Label(frame, text=txt, font=('Arial', 15, 'bold'))
+                self.convertedvalue.place(relx=0.48, rely=0.85)
             except:
+                self.error ='Please enter the currency or you wish to Convert'
                 messagebox.showerror(title='ERROR', message='Please enter the currency or you wish to Convert')
 
 
@@ -255,8 +256,8 @@ class PageOne(tk.Frame):
         def graph_update():
             try:
                 amount = 1
-                currency = side_from.get()
-                converted_currency = side_to.get()
+                currency = self.side_from.get()
+                converted_currency = self.side_to.get()
                 amount_of_days = 30
                 anim = animation.FuncAnimation(f, get_yearly_rates(amount, currency, converted_currency, amount_of_days), interval=5000)
 
